@@ -1,0 +1,37 @@
+{
+  "name": "mkrn-api",
+  "version": "1.0.0",
+  "description": "Koa-based API for MKRN starter.",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": "https://github.com/joshuaslate/mkrn-starter.git",
+  "author": "Joshua Anderson Slate",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^1.0.2",
+    "crypto-promise": "^2.0.0",
+    "jsonwebtoken": "^7.4.1",
+    "kcors": "^2.2.1",
+    "koa": "^2.3.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-logger": "^3.0.1",
+    "koa-passport": "^3.0.0",
+    "koa-router": "^7.2.1",
+    "lodash": "^4.17.4",
+    "mongoose": "^4.11.3",
+    "passport-jwt": "^2.2.1",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "eslint": "^4.2.0",
+    "eslint-config-airbnb": "^15.0.2",
+    "eslint-config-airbnb-base": "^11.2.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "5.1.1",
+    "eslint-plugin-react": "^7.1.0",
+    "nodemon": "^1.11.0"
+  }
+}
