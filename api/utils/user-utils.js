@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const _ = require('lodash');
 const authConfig = require('../config').auth;
+const ROLES = require('../constants').ROLES;
 
 /**
 * standardizeUser - Standardizes user and strips unnecessary data
@@ -27,7 +28,21 @@ const generateJWT = user => ({
   expiration: authConfig.jwtExpiration,
 });
 
+/**
+ * getRole - Returns a numerical value, which corresponds to the user's role
+ * @param   {String}  role  User's role in string form from the database
+ * @returns {Number}        User's role in number form
+ */
+const getRole = (role) => {
+  switch (role) {
+    case ROLES.ADMIN: return 2;
+    case ROLES.USER: return 1;
+    default: return 0;
+  }
+};
+
 module.exports = {
   generateJWT,
+  getRole,
   standardizeUser,
 };
