@@ -31,7 +31,7 @@ const generateJWT = user => ({
 /**
  * getRole - Returns a numerical value, which corresponds to the user's role
  * @param   {String}  role  User's role in string form from the database
- * @returns {Number}        User's role in number form
+ * @returns {Number}        User's role in number form for comparison
  */
 const getRole = (role) => {
   switch (role) {

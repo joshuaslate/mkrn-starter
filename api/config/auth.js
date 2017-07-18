@@ -9,9 +9,9 @@ const jwtOpts = { jwtFromRequest: JwtStrategy.ExtractJwt.fromAuthHeader(), secre
 
 module.exports = {
   passport: () => {
-    const localLogin = new LocalStrategy(localOpts, async (email, password, done) => {
+    const localLogin = new LocalStrategy(localOpts, async (email = '', password = '', done) => {
       try {
-        const user = await User.findOne({ email });
+        const user = await User.findOne({ email: email.toLowerCase() });
         const isValid = await user.comparePassword(password);
 
         return done(null, isValid ? user : {});
