@@ -1,8 +1,7 @@
 module.exports = () => {
   // Default to dev presets
-  const emailConfig = {
-    apiKey: 'key-xxxx',
-    domain: 'mg.yourdomain.com',
+  const billingConfig = {
+    stripeApiKey: 'your-key',
   };
 
   switch (process.env.NODE_ENV) {
@@ -15,5 +14,5 @@ module.exports = () => {
       break;
   }
 
-  return emailConfig;
+  return billingConfig;
 };

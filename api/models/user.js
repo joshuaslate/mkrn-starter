@@ -26,6 +26,12 @@ const UserSchema = new Schema({
   },
   resetPasswordToken: { type: String },
   resetPasswordExpires: { type: Date },
+  billing: {
+    customerId: { type: String },
+    subscriptionId: { type: String },
+    plan: { type: String },
+    nextPaymentDue: { type: Date },
+  },
   deactivated: { type: Boolean, default: false },
 },
 {

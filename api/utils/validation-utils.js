@@ -61,6 +61,29 @@ const responseValidator = function responseValidator(req, fields) {
   return req;
 };
 
+/**
+ * filterSensitiveData  - Filters out sensitive data from a request body
+ *
+ * @param  {Object} req     the Koa request body
+ * @return {Object}         Body without sensitive fields
+ */
+const filterSensitiveData = (req) => {
+  const newBody = {};
+  const sensitiveKeys = [
+    'password',
+    'billing',
+  ];
+
+  Object.keys(req).forEach((item) => {
+    if (sensitiveKeys.indexOf(item) === -1) {
+      newBody[item] = req[item];
+    }
+  });
+
+  return newBody;
+};
+
 module.exports = {
   responseValidator,
+  filterSensitiveData,
 };
