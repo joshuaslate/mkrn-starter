@@ -1,7 +1,7 @@
 {
   "name": "for-own",
   "description": "Iterate over the own enumerable properties of an object, and return an object with properties that evaluate to true from the callback. Exit early by returning `false`. JavaScript/Node.js.",
-  "version": "0.1.5",
+  "version": "1.0.0",
   "homepage": "https://github.com/jonschlinkert/for-own",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "contributors": [

@@ -18,7 +18,7 @@ module.exports = () => ({
   module: {
     rules: [
       {
-        test: /.js?$/,
+        test: /\.js$/,
         exclude: /node_modules/,
         include: path.join(__dirname, 'src'),
         use: [
@@ -35,6 +35,10 @@ module.exports = () => ({
             },
           },
         ],
+      },
+      {
+        test: /\.scss$/,
+        loader: ['style-loader', 'css-loader', 'sass-loader'],
       },
     ],
   },
