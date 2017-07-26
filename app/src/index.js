@@ -4,17 +4,17 @@ import configureStore from './redux';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import Header from './components/header/header';
-import requireAuth from './components/hoc/require-auth';
+import Routes from './routes';
 
 const store = configureStore();
 
-const TestAuthComp = requireAuth(Header);
 
 ReactDOM.render((
   <Provider store={store}>
     <BrowserRouter>
       <div className="mkrn-app">
-        <TestAuthComp />
+        <Header />
+        <Routes />
       </div>
     </BrowserRouter>
   </Provider>
