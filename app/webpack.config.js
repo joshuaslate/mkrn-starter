@@ -1,8 +1,10 @@
+const polyfill = require('babel-polyfill');
 const path = require('path');
 const HotModuleReplacementPlugin = require('webpack').HotModuleReplacementPlugin;
 
 module.exports = () => ({
   entry: [
+    'babel-polyfill',
     'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:8080',
     path.join(__dirname, 'src/index.js'),
