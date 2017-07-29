@@ -1,5 +1,5 @@
 import Cookies from 'universal-cookie';
-import { getEnvironment, getAppUrl } from './environment-utils';
+import { getEnvironment } from './environment-utils';
 
 const cookies = new Cookies();
 

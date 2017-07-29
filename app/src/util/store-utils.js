@@ -1,6 +1,15 @@
 import _ from 'lodash';
 import { PENDING, SUCCESS, ERROR } from './redux-constants';
 
+/**
+ * updateStore  - Returns an object containing updated state. This helper
+ *                builds generic state (messages, errors, loading)
+ *
+ * @param {Object} state          Current state of the store
+ * @param {Object} action         Redux action for the store to respond to
+ * @param {Object} [extraValues]  Any additional state to be assigned
+ * @returns {Object}
+ */
 export const updateStore = (state, action, extraValues = {}) => {
   const { type = '', payload = {}, meta = { status: '' } } = action;
   switch (meta.status) {
@@ -29,3 +38,31 @@ export const updateStore = (state, action, extraValues = {}) => {
       };
   }
 };
+
+/**
+ * buildGenericInitialState  - Builds initial state for a set of constants
+ *                             (loading, errors, messages)
+ *
+ * @param {Array} constants  Array of constants to build state around
+ * @returns {Object}
+ */
+export const buildGenericInitialState = constants => ({
+  messages: constants.reduce((retObj, constant) => {
+    retObj[constant] = '';
+    return retObj;
+  }, {}),
+  errors: constants.reduce((retObj, constant) => {
+    retObj[constant] = [];
+    return retObj;
+  }, {}),
+  loading: constants.reduce((retObj, constant) => {
+    retObj[constant] = false;
+    return retObj;
+  }, {}),
+});
+
+export const handleError = (dispatch, error, type) => (dispatch({
+  type,
+  payload: error.errors ? error.errors : error,
+  meta: { status: ERROR },
+}));

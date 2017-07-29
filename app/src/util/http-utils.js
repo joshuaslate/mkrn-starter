@@ -1,34 +1,26 @@
 import axios from 'axios';
 import { getApiUrl, getEnvironment } from './environment-utils';
 import { getCookie } from './cookie-utils';
-import { PENDING, SUCCESS, ERROR, POST, PUT, GET, DELETE } from './redux-constants';
+import { PENDING, SUCCESS, POST, PUT, GET, DELETE } from './redux-constants';
 
 const API_URL = getApiUrl();
 
 /**
- * handleError  - Error handler intended to be used in a catch block
- * @param {Function} dispatch React-redux's dispatch function
+ * logError  - Log error without UI display
  * @param {Object} error      Error object caught in catch block
  * @param {String} type       Action type that caused error
  *
  * @returns {Promise}
  */
-export const handleError = (dispatch, error, type) => {
-  // Console.error the error if in a development environment
+export const logError = (error, type) => {
   if (getEnvironment() === 'development') {
     console.error(`Error type: ${type}.`);
     console.error(error);
   }
 
   const errorMessage = error && error.response
-    ? error.response.data
-    : error;
-
-  dispatch({
-    type,
-    payload: errorMessage,
-    status: ERROR,
-  });
+  ? error.response.data
+  : error;
 
   return Promise.reject(errorMessage);
 };
@@ -75,9 +67,9 @@ const httpRequest = async (dispatch, requestType = GET, actionType = '', opts = 
       payload: response.data,
     });
 
-    return Promise.resolve(response.data);
+    await response.data;
   } catch (err) {
-    return Promise.reject(err);
+    throw err;
   }
 };
 
@@ -93,10 +85,9 @@ const httpRequest = async (dispatch, requestType = GET, actionType = '', opts = 
  */
 export const post = async (dispatch, type, endpoint, data, requiresAuth) => {
   try {
-    const results = await httpRequest(dispatch, POST, type, { endpoint, data, requiresAuth });
-    return Promise.resolve(results);
+    await httpRequest(dispatch, POST, type, { endpoint, data, requiresAuth });
   } catch (err) {
-    return handleError(dispatch, err, type);
+    await logError(err, type);
   }
 };
 
@@ -114,7 +105,7 @@ export const put = async (dispatch, type, endpoint, data, requiresAuth) => {
   try {
     await httpRequest(dispatch, PUT, type, { endpoint, data, requiresAuth });
   } catch (err) {
-    return handleError(dispatch, err, type);
+    await logError(err, type);
   }
 };
 
@@ -131,7 +122,7 @@ export const get = async (dispatch, type, endpoint, requiresAuth) => {
   try {
     await httpRequest(dispatch, GET, type, { endpoint, requiresAuth });
   } catch (err) {
-    return handleError(dispatch, err, type);
+    await logError(err, type);
   }
 };
 
@@ -148,6 +139,6 @@ export const del = async (dispatch, type, endpoint, requiresAuth) => {
   try {
     await httpRequest(dispatch, DELETE, type, { endpoint, requiresAuth });
   } catch (err) {
-    return handleError(dispatch, err, type);
+    await logError(err, type);
   }
 };

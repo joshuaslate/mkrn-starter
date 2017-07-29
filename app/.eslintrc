@@ -8,6 +8,11 @@
     "jest": true
   },
   "rules": {
+    "jsx-a11y/href-no-hash": "off",
     "no-underscore-dangle": ["error", { "allow": ["_id"] }],
-  },
+    "no-console": "off",
+    "no-param-reassign": "off",
+    "react/jsx-filename-extension": "off",
+    "react/require-default-props": "off"
+  }
 }
