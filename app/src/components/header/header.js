@@ -1,16 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { login } from '../../redux/modules/user';
 
-export class Header extends Component {
-  render = () => (
+const Header = ({ user }) => {
+  console.log(user);
+  return (
     <div>
-      <button onClick={() => { this.props.login({ email: 'test@davidmeents.com', password: '12345678' }); }}>
-        Test login
-      </button>
+      {user && user.user && user.user.firstName}
     </div>
-  )
+  );
 }
 
+Header.propTypes = {
+  user: PropTypes.shape({
+    firstName: PropTypes.string,
+  }),
+};
+
 const mapStateToProps = ({ user }) => ({ user });
-export default connect(mapStateToProps, { login })(Header);
+export default connect(mapStateToProps)(Header);

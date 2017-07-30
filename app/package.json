@@ -33,6 +33,7 @@
     "babel-polyfill": "^6.23.0",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
+    "normalize.css": "^7.0.0",
     "path": "^0.12.7",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",

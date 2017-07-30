@@ -31,7 +31,7 @@ module.exports = () => ({
               presets: [
                 ['es2015', { modules: false }],
                 'react',
-                'stage-2'
+                'stage-2',
               ],
               plugins: ['react-hot-loader/babel'],
             },
@@ -39,7 +39,7 @@ module.exports = () => ({
         ],
       },
       {
-        test: /\.scss$/,
+        test: /\.(css|scss)$/,
         loader: ['style-loader', 'css-loader', 'sass-loader'],
       },
     ],
@@ -48,5 +48,5 @@ module.exports = () => ({
     historyApiFallback: true,
     contentBase: './src',
     hot: true,
-  }
+  },
 });

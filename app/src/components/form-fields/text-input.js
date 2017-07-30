@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const TextInput = ({ input, meta, id, placeholder, type, extraClasses }) => (
-  <label htmlFor={id}>
+const TextInput = ({ input, meta, id, placeholder, type, label = '', extraClasses = '' }) => (
+  <label htmlFor={id} className="form-label">
+    {label}
     {meta.touched && meta.error && <div className="alert alert-card alert-error">{meta.error}</div>}
     <input
       {...input}
       id={id}
-      className={`form-control ${extraClasses && extraClasses}`}
+      className={`form-control ${extraClasses}`}
       placeholder={placeholder}
       type={type}
     />

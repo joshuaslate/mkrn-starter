@@ -1,0 +1,30 @@
+.button {
+  border: 1px solid transparent;
+  border-radius: $border-radius;
+  text-align: center;
+  white-space: nowrap;
+  padding: calc(0.375em - 1px) .75em;
+  cursor: pointer;
+  background: none;
+  height: 2.25em;
+  line-height: 1.5;
+
+  &.is- {
+    &primary {
+      background: $primary-color;
+      color: #FFF;
+
+      &:hover {
+        background: darken($primary-color, 5%);
+      }
+    }
+
+    &primary-outline {
+      border-color: $primary-color;
+
+      &:hover {
+        border-color: darken($primary-color, 5%);
+      }
+    }
+  }
+}
