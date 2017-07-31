@@ -13,11 +13,6 @@ const form = reduxForm({
   form: 'login',
 });
 
-const formSpec = [
-  { id: 'email', name: 'email', label: 'Email', type: 'email', placeholder: 'you@yourdomain.com', component: TextInput },
-  { id: 'password', name: 'password', label: 'Password', type: 'password', placeholder: '********', component: TextInput },
-];
-
 class Login extends Component {
   static propTypes = {
     handleSubmit: PropTypes.func,
@@ -25,7 +20,13 @@ class Login extends Component {
     login: PropTypes.func,
     errors: errorPropTypes,
     message: PropTypes.string,
+    loading: PropTypes.bool,
   };
+
+  static formSpec = [
+    { id: 'email', name: 'email', label: 'Email', type: 'email', placeholder: 'you@yourdomain.com', component: TextInput },
+    { id: 'password', name: 'password', label: 'Password', type: 'password', placeholder: '********', component: TextInput },
+  ];
 
   handleFormSubmit = (formProps) => {
     const { desiredPath } = this.props;
@@ -37,12 +38,18 @@ class Login extends Component {
   }
 
   render = () => {
-    const { handleSubmit, errors, message } = this.props;
+    const { handleSubmit, errors, message, loading } = this.props;
 
     return (
-      <div className="auth-box">
+      <div className={`auth-box ${loading ? 'is-loading' : ''}`}>
         <h1>Login</h1>
-        <GenericForm onSubmit={handleSubmit(this.handleFormSubmit)} errors={errors} message={message} formSpec={formSpec} submitText="Login" />
+        <GenericForm
+          onSubmit={handleSubmit(this.handleFormSubmit)}
+          errors={errors}
+          message={message}
+          formSpec={Login.formSpec}
+          submitText="Login"
+        />
         <Link className="inline" to="/forgot-password">Forgot password?</Link> | <Link className="inline" to="/register">Create a new account.</Link>
       </div>
     );
@@ -52,6 +59,7 @@ class Login extends Component {
 const mapStateToProps = ({ user }) => ({
   errors: user.errors[CHANGE_AUTH],
   message: user.messages[CHANGE_AUTH],
+  loading: user.loading[CHANGE_AUTH],
   authenticated: user.authenticated,
   desiredPath: user.desiredPath,
 });

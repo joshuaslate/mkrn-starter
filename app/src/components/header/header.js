@@ -3,13 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 const Header = ({ user }) => {
-  console.log(user);
   return (
     <div>
       {user && user.user && user.user.firstName}
     </div>
   );
-}
+};
 
 Header.propTypes = {
   user: PropTypes.shape({

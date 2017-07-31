@@ -1,0 +1,64 @@
+// 12 column grid
+$numCols: 12;
+$colPad: 0.3em;
+
+// Set up general grid classes
+.row {
+  width: 100%;
+  margin: 0 auto;
+  @include clearfix();
+
+  [class*='col-'] {
+    float: left;
+    padding: $colPad;
+  }
+
+  @for $i from 1 through $numCols {
+    .col-#{$i} {
+      width: 100% / $i;
+    }
+  }
+}
+
+// Responsiveness
+@include breakpoint(small) {
+  @for $i from 1 through $numCols {
+    .col-#{$i} {
+      width: 100%;
+    }
+  }
+}
+
+@include breakpoint(medium) {
+  .col-1,
+  .col-2,
+  .col-3,
+  .col-5,
+  .col-7,
+  .col-9,
+  .col-11 {
+    width: 100%;
+  }
+
+  .col-4,
+  .col-6,
+  .col-8,
+  .col-10,
+  .col-12 {
+    width: 50%;
+  }
+}
+
+@include breakpoint(large) {
+  .col-2,
+  .col-7 {
+    width: 100%;
+  }
+
+  .col-4,
+  .col-8,
+  .col-10,
+  .col-12 {
+    width: 50%;
+  }
+}

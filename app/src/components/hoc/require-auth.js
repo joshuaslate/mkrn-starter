@@ -1,45 +1,54 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { postAuthPath } from '../../redux/modules/user';
 
 export default (ComposedComponent) => {
-  return class Authentication extends Component {
-    static contextTypes = {
-      router: PropTypes.shape({
-        history: PropTypes.shape({
-          push: PropTypes.func,
-        }),
-      }).isRequired,
-    };
-
+  class Authentication extends Component {
     static propTypes = {
       authenticated: PropTypes.bool,
-      location: PropTypes.object,
-      route: PropTypes.object,
+      history: PropTypes.shape({
+        push: PropTypes.func,
+      }),
+      match: PropTypes.shape({
+        path: PropTypes.string,
+      }),
       postAuthPath: PropTypes.func,
     };
 
+    // List of pre-authention routes, so they aren't saved for a post-auth redirect
+    static preAuthRoutes = ['/login', '/register', '/reset-password', '/forgot-password'];
+
     componentDidMount = () => this.ensureAuthentication(this.props.authenticated);
 
-    componentWillUpdate = nextProps => this.ensureAuthentication(nextProps.authenticated);
+    componentWillUpdate = (nextProps) => {
+      if (this.props.authenticated !== nextProps.authenticated) {
+        this.ensureAuthentication(nextProps.authenticated);
+      }
+    };
 
     ensureAuthentication = (isAuthed) => {
       if (!isAuthed) {
-        if (this.props.route && this.props.route.path) {
-          // this.props.postAuthPath(this.props.location.pathname);
+        const path = _.get(this.props.match, 'path');
+
+        // Save the user's path for future redirect
+        if (path && !Authentication.preAuthRoutes.includes(path)) {
+          this.props.postAuthPath(path);
         }
-        // this.context.router.history.push('/login');
+
+        // Redirect to the login page
+        this.props.history.push('/login');
       }
     }
 
     render() {
-      console.log(this.context);
       return <ComposedComponent {...this.props} />;
     }
   }
 
   const mapStateToProps = ({ user }) => ({ authenticated: user.authenticated });
 
-  return connect(mapStateToProps, { postAuthPath })(Authentication);
-}
+  return withRouter(connect(mapStateToProps, { postAuthPath })(Authentication));
+};

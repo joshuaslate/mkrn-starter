@@ -1,3 +1,6 @@
+// Namespace for application
+export const APP_NAMESPACE = 'mkrn-starter';
+
 // Request status indicators
 export const PENDING = 'PENDING';
 export const SUCCESS = 'SUCCESS';
