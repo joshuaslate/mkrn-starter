@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
+import { reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import TextInput from '../form-fields/text-input';
-import Alert from '../notification/alert';
+import GenericForm from '../form-fields/generic-form';
 import { login, CHANGE_AUTH } from '../../redux/modules/user';
 import { errorPropTypes } from '../../util/proptype-utils';
 import './authentication.scss';
@@ -12,6 +12,11 @@ import './authentication.scss';
 const form = reduxForm({
   form: 'login',
 });
+
+const formSpec = [
+  { id: 'email', name: 'email', label: 'Email', type: 'email', placeholder: 'you@yourdomain.com', component: TextInput },
+  { id: 'password', name: 'password', label: 'Password', type: 'password', placeholder: '********', component: TextInput },
+];
 
 class Login extends Component {
   static propTypes = {
@@ -37,20 +42,8 @@ class Login extends Component {
     return (
       <div className="auth-box">
         <h1>Login</h1>
-        <Alert errors={errors} icon="error_outline" />
-        <Alert message={message} icon="done" />
-        <form className="form" onSubmit={handleSubmit(this.handleFormSubmit)}>
-          <ul className="form-list">
-            <li>
-              <Field id="email" name="email" label="Email" component={TextInput} type="email" placeholder="you@yourdomain.com" />
-            </li>
-            <li>
-              <Field id="password" label="Password" name="password" component={TextInput} type="password" placeholder="********" />
-            </li>
-          </ul>
-          <button type="submit" className="button is-primary">Login</button><br />
-          <div className="center"><Link className="inline" to="/forgot-password">Forgot password?</Link> | <Link className="inline" to="/register">Create a new account.</Link></div>
-        </form>
+        <GenericForm onSubmit={handleSubmit(this.handleFormSubmit)} errors={errors} message={message} formSpec={formSpec} submitText="Login" />
+        <Link className="inline" to="/forgot-password">Forgot password?</Link> | <Link className="inline" to="/register">Create a new account.</Link>
       </div>
     );
   }
