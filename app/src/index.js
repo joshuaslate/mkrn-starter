@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'normalize.css';
-import configureStore from './redux';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import 'normalize.css';
+import configureStore from './redux';
 import Header from './components/header/header';
 import Routes from './routes';
 

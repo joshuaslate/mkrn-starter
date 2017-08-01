@@ -1,20 +1,19 @@
 import React from 'react';
 import { fieldPropTypes } from '../../util/proptype-utils';
 
-const TextInput = ({ input, meta, id, placeholder, type, label = '', extraClasses = '' }) => (
+const Textarea = ({ input, meta, id, placeholder, type, label = '', extraClasses = '' }) => (
   <label htmlFor={id} className="form-label">
     {label}
     {meta.touched && meta.error && <div className="alert alert-card alert-error">{meta.error}</div>}
-    <input
+    <textarea
       {...input}
       id={id}
-      className={`form-control ${extraClasses}`}
       placeholder={placeholder}
-      type={type}
+      className={`form-control ${extraClasses && extraClasses}`}
     />
   </label>
 );
 
-TextInput.propTypes = fieldPropTypes;
+Textarea.propTypes = fieldPropTypes;
 
-export default TextInput;
+export default Textarea;
