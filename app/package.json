@@ -6,7 +6,8 @@
   "author": "Joshua Anderson Slate",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server --progress --colors --hot"
+    "start": "webpack-dev-server --progress --colors --hot",
+    "build": "export NODE_ENV=production|| set NODE_ENV=production && webpack"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",

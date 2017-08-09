@@ -2,8 +2,8 @@
 FROM node:8
 
 # install and update system dependencies
-RUN yum update
-RUN yum install -y zip curl vim
+RUN apt-get update
+RUN apt-get install -y zip curl vim
 RUN npm install -g pm2
 
 # create api directory
