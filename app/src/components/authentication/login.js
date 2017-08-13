@@ -5,7 +5,7 @@ import { reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import TextInput from '../form-fields/text-input';
 import GenericForm from '../form-fields/generic-form';
-import { login, CHANGE_AUTH } from '../../redux/modules/user';
+import { login, CHANGE_AUTH } from '../../redux/modules/authentication';
 import { errorPropTypes } from '../../util/proptype-utils';
 import './authentication.scss';
 
@@ -56,12 +56,12 @@ class Login extends Component {
   }
 }
 
-const mapStateToProps = ({ user }) => ({
-  errors: user.errors[CHANGE_AUTH],
-  message: user.messages[CHANGE_AUTH],
-  loading: user.loading[CHANGE_AUTH],
-  authenticated: user.authenticated,
-  desiredPath: user.desiredPath,
+const mapStateToProps = ({ authentication }) => ({
+  errors: authentication.errors[CHANGE_AUTH],
+  message: authentication.messages[CHANGE_AUTH],
+  loading: authentication.loading[CHANGE_AUTH],
+  authenticated: authentication.authenticated,
+  desiredPath: authentication.desiredPath,
 });
 
 export default connect(mapStateToProps, { login })(form(Login));

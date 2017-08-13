@@ -1,0 +1,26 @@
+header {
+  background: #e6e6e6;
+  height: $header-height;
+  width: 100%;
+  padding: 0 10px;
+
+  .logo {
+    line-height: $header-height;
+  }
+
+  nav {
+    ul {
+      margin: 0;
+
+      li {
+        display: inline-block;
+        padding: 0 10px;
+        line-height: $header-height;
+
+        &:last-of-type {
+          padding-right: 0;
+        }
+      }
+    }
+  }
+}

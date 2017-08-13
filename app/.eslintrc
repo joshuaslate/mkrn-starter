@@ -12,6 +12,7 @@
     "no-underscore-dangle": ["error", { "allow": ["_id"] }],
     "no-console": "off",
     "no-param-reassign": "off",
+    "no-script-url": "off",
     "react/jsx-filename-extension": "off",
     "react/require-default-props": "off"
   }

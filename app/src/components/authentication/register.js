@@ -5,7 +5,7 @@ import { reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import TextInput from '../form-fields/text-input';
 import GenericForm from '../form-fields/generic-form';
-import { register, CHANGE_AUTH } from '../../redux/modules/user';
+import { register, CHANGE_AUTH } from '../../redux/modules/authentication';
 import { errorPropTypes } from '../../util/proptype-utils';
 import './authentication.scss';
 
@@ -51,11 +51,11 @@ class Register extends Component {
   }
 }
 
-const mapStateToProps = ({ user }) => ({
-  errors: user.errors[CHANGE_AUTH],
-  message: user.messages[CHANGE_AUTH],
-  loading: user.loading[CHANGE_AUTH],
-  authenticated: user.authenticated,
+const mapStateToProps = ({ authentication }) => ({
+  errors: authentication.errors[CHANGE_AUTH],
+  message: authentication.messages[CHANGE_AUTH],
+  loading: authentication.loading[CHANGE_AUTH],
+  authenticated: authentication.authenticated,
 });
 
 export default connect(mapStateToProps, { register })(form(Register));

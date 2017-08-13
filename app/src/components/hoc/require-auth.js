@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { postAuthPath } from '../../redux/modules/user';
+import { setPostAuthPath } from '../../redux/modules/authentication';
 
 export default (ComposedComponent) => {
   class Authentication extends Component {
@@ -15,7 +15,7 @@ export default (ComposedComponent) => {
       match: PropTypes.shape({
         path: PropTypes.string,
       }),
-      postAuthPath: PropTypes.func,
+      setPostAuthPath: PropTypes.func,
     };
 
     // List of pre-authention routes, so they aren't saved for a post-auth redirect
@@ -35,7 +35,7 @@ export default (ComposedComponent) => {
 
         // Save the user's path for future redirect
         if (path && !Authentication.preAuthRoutes.includes(path)) {
-          this.props.postAuthPath(path);
+          this.props.setPostAuthPath(path);
         }
 
         // Redirect to the login page
@@ -50,5 +50,5 @@ export default (ComposedComponent) => {
 
   const mapStateToProps = ({ user }) => ({ authenticated: user.authenticated });
 
-  return withRouter(connect(mapStateToProps, { postAuthPath })(Authentication));
+  return withRouter(connect(mapStateToProps, { setPostAuthPath })(Authentication));
 };

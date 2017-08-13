@@ -61,8 +61,28 @@ export const buildGenericInitialState = constants => ({
   }, {}),
 });
 
+/**
+ * handleError  - Dispatches error properly to Redux stores
+ *
+ * @param {Function} dispatch Redux dispatch function
+ * @param {Object}   error    Error container
+ * @param {String}   type     Action type constant for error received
+ */
 export const handleError = (dispatch, error, type) => (dispatch({
   type,
   payload: error.errors ? error.errors : error,
   meta: { status: ERROR },
 }));
+
+/**
+ * removeMetaFromState  - Remove metadata from state (general selector)
+ *
+ * @param {Object} state  State to filter metadata out of
+ */
+export const removeMetaFromState = state => Object.keys(state).reduce((accum, val) => {
+  if (val !== 'errors' && val !== 'messages' && val !== 'loading') {
+    accum[val] = state[val];
+  }
+
+  return accum;
+}, {});

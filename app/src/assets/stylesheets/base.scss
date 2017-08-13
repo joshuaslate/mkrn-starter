@@ -8,6 +8,11 @@
 @import "partials/state";
 
 // ========================
+// Template components
+// ========================
+@import "partials/header";
+
+// ========================
 // Multi-use components
 // ========================
 @import "partials/buttons";
@@ -24,4 +29,20 @@ html, body, #root {
 
 *, *:before, *:after {
   box-sizing: border-box;
+}
+
+.clearfix {
+  @include clearfix();
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.inline {
+  display: inline-block;
 }

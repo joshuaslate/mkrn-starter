@@ -5,7 +5,7 @@ import { reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import TextInput from '../form-fields/text-input';
 import GenericForm from '../form-fields/generic-form';
-import { forgotPassword, RESET_PASSWORD } from '../../redux/modules/user';
+import { forgotPassword, RESET_PASSWORD } from '../../redux/modules/authentication';
 import { errorPropTypes } from '../../util/proptype-utils';
 import './authentication.scss';
 
@@ -46,10 +46,10 @@ class ForgotPassword extends Component {
   }
 }
 
-const mapStateToProps = ({ user }) => ({
-  errors: user.errors[RESET_PASSWORD],
-  message: user.messages[RESET_PASSWORD],
-  loading: user.loading[RESET_PASSWORD],
+const mapStateToProps = ({ authentication }) => ({
+  errors: authentication.errors[RESET_PASSWORD],
+  message: authentication.messages[RESET_PASSWORD],
+  loading: authentication.loading[RESET_PASSWORD],
 });
 
 export default connect(mapStateToProps, { forgotPassword })(form(ForgotPassword));

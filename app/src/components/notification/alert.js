@@ -2,22 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { errorPropTypes } from '../../util/proptype-utils';
 
+/**
+ * Alert  - Standard alert card component
+ * @param {Array}   errors  Array containing errors
+ * @param {String}  message Message to display
+ * @param {String}  icon    Icon to show with alert
+ * @returns {Function}
+ */
 const Alert = ({ errors = [], message = '', icon }) => {
-  if (errors && errors.length) {
-    return (
-      <div className={errors && errors.length ? 'alert alert-card alert-error' : 'is-hidden'}>
-        <div className="error"><i className="material-icons">{icon}</i>
-          {(errors && errors.length) &&
-            errors.map((error, index) => <span key={index}>{error.error}&nbsp;</span>)
-          }
-        </div>
-      </div>
-    );
-  }
+  const alertType = errors && errors.length ? 'errors' : 'message';
+  const shouldShow = Boolean((errors && errors.length) || message);
+
   return (
-    <div className={message ? 'alert alert-card alert-message' : 'is-hidden'}>
-      <div className="message"><i className="material-icons">{icon}</i>
-        <span>{message}</span>
+    <div className={`alert alert-card alert-${alertType} ${shouldShow ? '' : 'is-hidden'}`}>
+      <div className={alertType}><i className="material-icons">{icon}</i>
+        {(errors && errors.length) &&
+          errors.map((error, index) => <span key={index}>{error.error}&nbsp;</span>)
+        }
+        {message && <span>{message}</span>}
       </div>
     </div>
   );

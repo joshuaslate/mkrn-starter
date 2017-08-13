@@ -67,7 +67,7 @@ const httpRequest = async (dispatch, requestType = GET, actionType = '', opts = 
       payload: response.data,
     });
 
-    await response.data;
+    return Promise.resolve(response.data);
   } catch (err) {
     throw err;
   }
@@ -83,13 +83,8 @@ const httpRequest = async (dispatch, requestType = GET, actionType = '', opts = 
  *
  * @returns {Promise}
  */
-export const post = async (dispatch, type, endpoint, data, requiresAuth) => {
-  try {
-    await httpRequest(dispatch, POST, type, { endpoint, data, requiresAuth });
-  } catch (err) {
-    await logError(err, type);
-  }
-};
+export const post = (dispatch, type, endpoint, data, requiresAuth) =>
+  httpRequest(dispatch, POST, type, { endpoint, data, requiresAuth });
 
 /**
  * put - Generic action to make a PUT request with axios
@@ -101,13 +96,8 @@ export const post = async (dispatch, type, endpoint, data, requiresAuth) => {
  *
  * @returns {Promise}
  */
-export const put = async (dispatch, type, endpoint, data, requiresAuth) => {
-  try {
-    await httpRequest(dispatch, PUT, type, { endpoint, data, requiresAuth });
-  } catch (err) {
-    await logError(err, type);
-  }
-};
+export const put = async (dispatch, type, endpoint, data, requiresAuth) =>
+  httpRequest(dispatch, PUT, type, { endpoint, data, requiresAuth });
 
 /**
  * get - Generic action to make a GET request with axios
@@ -118,13 +108,8 @@ export const put = async (dispatch, type, endpoint, data, requiresAuth) => {
  *
  * @returns {Promise}
  */
-export const get = async (dispatch, type, endpoint, requiresAuth) => {
-  try {
-    await httpRequest(dispatch, GET, type, { endpoint, requiresAuth });
-  } catch (err) {
-    await logError(err, type);
-  }
-};
+export const get = async (dispatch, type, endpoint, requiresAuth) =>
+  httpRequest(dispatch, GET, type, { endpoint, requiresAuth });
 
 /**
  * del - Generic action to make a DELETE request with axios
@@ -135,10 +120,5 @@ export const get = async (dispatch, type, endpoint, requiresAuth) => {
  *
  * @returns {Promise}
  */
-export const del = async (dispatch, type, endpoint, requiresAuth) => {
-  try {
-    await httpRequest(dispatch, DELETE, type, { endpoint, requiresAuth });
-  } catch (err) {
-    await logError(err, type);
-  }
-};
+export const del = async (dispatch, type, endpoint, requiresAuth) =>
+  httpRequest(dispatch, DELETE, type, { endpoint, requiresAuth });
