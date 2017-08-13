@@ -40,6 +40,7 @@ export const login = (credentials, desiredPath) => async (dispatch) => {
       }
     }
   } catch (err) {
+    console.log(err)
     await handleError(dispatch, err, CHANGE_AUTH);
   }
 };

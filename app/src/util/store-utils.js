@@ -68,11 +68,14 @@ export const buildGenericInitialState = constants => ({
  * @param {Object}   error    Error container
  * @param {String}   type     Action type constant for error received
  */
-export const handleError = (dispatch, error, type) => (dispatch({
-  type,
-  payload: error.errors ? error.errors : error,
-  meta: { status: ERROR },
-}));
+export const handleError = (dispatch, error, type) => {
+  const foundError = _.get(error, 'response.data.errors') || [{ error }];
+  return dispatch({
+    type,
+    payload: foundError,
+    meta: { status: ERROR },
+  });
+}
 
 /**
  * removeMetaFromState  - Remove metadata from state (general selector)

@@ -99,13 +99,12 @@
       color: $gray-border;
     }
 
-    // AUTO FILE OVERRIDE
+    // AUTO FILL OVERRIDE
     &:-webkit-autofill,
     &:-webkit-autofill:hover,
     &:-webkit-autofill:focus {
       background-color: #FFF;
       transition: background-color 5000s ease-in-out 0s;
-      -webkit-text-fill-color: $gray-border;
     }
 
     &:hover,
