@@ -48,7 +48,7 @@ export default (ComposedComponent) => {
     }
   }
 
-  const mapStateToProps = ({ user }) => ({ authenticated: user.authenticated });
+  const mapStateToProps = ({ authentication }) => ({ authenticated: authentication.authenticated });
 
   return withRouter(connect(mapStateToProps, { setPostAuthPath })(Authentication));
 };

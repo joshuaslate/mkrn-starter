@@ -75,7 +75,7 @@ export const handleError = (dispatch, error, type) => {
     payload: foundError,
     meta: { status: ERROR },
   });
-}
+};
 
 /**
  * removeMetaFromState  - Remove metadata from state (general selector)

@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import 'normalize.css';
 import configureStore from './redux';
 import Header from './components/header/header';
-import Routes from './routes';
+import Routes from './routes/';
 
 // Import stylesheets
 import './assets/stylesheets/base.scss';
