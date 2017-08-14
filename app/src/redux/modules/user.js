@@ -1,9 +1,8 @@
 import _ from 'lodash';
 import { APP_NAMESPACE } from '../../util/redux-constants';
 import { put, post, get, del } from '../../util/http-utils';
-import { getCookie } from '../../util/cookie-utils';
 import { updateStore, buildGenericInitialState, handleError } from '../../util/store-utils';
-import { CHANGE_AUTH } from './authentication';
+import { CHANGE_AUTH, GET_AUTHENTICATED_USER } from './authentication';
 
 const typeBase = `${APP_NAMESPACE}/user/`;
 
@@ -11,7 +10,7 @@ const typeBase = `${APP_NAMESPACE}/user/`;
 export const GET_USER = `${typeBase}GET_USER`;
 export const GET_USERS = `${typeBase}GET_USERS`;
 
-const USER_ENDPOINT_BASE = '/user';
+const USER_ENDPOINT_BASE = 'user';
 
 // Actions
 
@@ -54,6 +53,8 @@ export default (state = INITIAL_STATE, action) => {
     case CHANGE_AUTH:
       return updateStore(state, action, _.get(action, 'payload.user.id') ? { [action.payload.user.id]: action.payload.user } : {});
     case GET_USER:
+    case GET_AUTHENTICATED_USER:
+      console.log(action)
       return updateStore(state, action, _.get(action, 'payload.user.id') ? { [action.payload.user.id]: action.payload.user } : {});
     case GET_USERS:
       return updateStore(state, action, _.get(action, 'payload.users') ? _.mapKeys(action.payload.users, 'id') : {});

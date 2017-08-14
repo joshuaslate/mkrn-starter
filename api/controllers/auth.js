@@ -205,7 +205,7 @@ exports.requireRole = async role =>
   };
 
 /**
- * getUser  - Returns JSON for the authenticated user
+ * getAuthenticatedUser  - Returns JSON for the authenticated user
  */
 exports.getAuthenticatedUser = async (ctx, next) => {
   const user = await User.findById(ctx.state.user.id);

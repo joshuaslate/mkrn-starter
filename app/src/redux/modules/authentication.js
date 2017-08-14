@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { APP_NAMESPACE } from '../../util/redux-constants';
-import { post } from '../../util/http-utils';
+import { get, post } from '../../util/http-utils';
 import { deleteCookie, getCookie, setCookie } from '../../util/cookie-utils';
 import { updateStore, buildGenericInitialState, handleError } from '../../util/store-utils';
 import { getAppUrl } from '../../util/environment-utils';
@@ -11,8 +11,9 @@ const typeBase = `${APP_NAMESPACE}/authentication/`;
 export const CHANGE_AUTH = `${typeBase}CHANGE_AUTH`;
 export const SET_POST_AUTH_PATH = `${typeBase}SET_POST_AUTH_PATH`;
 export const RESET_PASSWORD = `${typeBase}RESET_PASSWORD`;
+export const GET_AUTHENTICATED_USER = `${typeBase}GET_AUTHENTICATED_USER`;
 
-const AUTH_ENDPOINT_BASE = '/auth';
+const AUTH_ENDPOINT_BASE = 'auth';
 
 // Actions
 export const changeAuthentication = payload => dispatch =>
@@ -112,17 +113,32 @@ export const resetPassword = (formData, token) => async (dispatch) => {
   }
 };
 
+/**
+ * getAuthenticatedUser - Retrieves the logged in user's information
+ * @returns {Promise}
+ */
+export const getAuthenticatedUser = () => async (dispatch) => {
+  try {
+    const response = await get(dispatch, GET_AUTHENTICATED_USER, `${AUTH_ENDPOINT_BASE}/profile`, true);
+    return Promise.resolve(response);
+  } catch (err) {
+    await handleError(dispatch, err, GET_AUTHENTICATED_USER);
+  }
+};
+
 // Store
 const INITIAL_STATE = {
   authenticated: Boolean(getCookie('token')),
   user: '',
-  ...buildGenericInitialState([CHANGE_AUTH, SET_POST_AUTH_PATH, RESET_PASSWORD]),
+  ...buildGenericInitialState([CHANGE_AUTH, SET_POST_AUTH_PATH, RESET_PASSWORD, GET_AUTHENTICATED_USER]),
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case CHANGE_AUTH:
       return updateStore(state, action, { authenticated: Boolean(_.get(action, 'payload.token')), user: _.get(action, 'payload.user.id') });
+    case GET_AUTHENTICATED_USER:
+      return updateStore(state, action, { user: _.get(action, 'payload.user.id') });
     default:
       return state;
   }

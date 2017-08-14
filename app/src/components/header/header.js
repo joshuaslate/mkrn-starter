@@ -23,10 +23,17 @@ class Header extends Component {
   mobileCheck = () => this.setState({ isMobile: window.innerWidth <= mobileBreakpoint });
 
   buildNavigation = () => {
+    const { user } = this.props;
+    console.log(user)
     const links = [
       {
         name: 'Dashboard',
         link: 'dashboard',
+        authenticated: true,
+      },
+      {
+        name: (user && user.firstName) || 'Profile',
+        link: 'profile',
         authenticated: true,
       },
       {
@@ -61,7 +68,6 @@ class Header extends Component {
   toggleMobileNav = () => this.setState({ mobileNavOpen: !this.state.mobileNavOpen });
 
   render() {
-    const { authenticated, user } = this.props;
     const { isMobile, mobileNavOpen } = this.state;
 
     return (
@@ -98,4 +104,5 @@ const mapStateToProps = ({ user, authentication }) => ({
   user: getAuthenticatedUser({ user, authentication }),
   authenticated: authentication.authenticated,
 });
+
 export default connect(mapStateToProps, { logoutUser })(Header);
