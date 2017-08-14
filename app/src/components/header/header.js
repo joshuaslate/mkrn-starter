@@ -7,23 +7,20 @@ import { logoutUser } from '../../redux/modules/authentication';
 import { mobileBreakpoint } from '../../constants/ui-constants';
 
 class Header extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isMobile: this.mobileCheck(),
-    };
-  }
+  state = {
+    isMobile: window.innerWidth <= mobileBreakpoint,
+    mobileNavOpen: false,
+  };
 
   componentWillMount = () => {
-    window.addEventListener('resize', this.mobileCheck());
+    window.addEventListener('resize', this.mobileCheck);
   }
 
   componentWillUnmount = () => {
-    window.removeEventListener('resize', this.mobileCheck());
+    window.removeEventListener('resize', this.mobileCheck);
   }
 
-  mobileCheck = () => window.innerWidth <= mobileBreakpoint;
+  mobileCheck = () => this.setState({ isMobile: window.innerWidth <= mobileBreakpoint });
 
   buildNavigation = () => {
     const links = [
@@ -61,15 +58,28 @@ class Header extends Component {
     );
   };
 
+  toggleMobileNav = () => this.setState({ mobileNavOpen: !this.state.mobileNavOpen });
+
   render() {
     const { authenticated, user } = this.props;
+    const { isMobile, mobileNavOpen } = this.state;
+
     return (
       <header className="clearfix">
         <strong className="logo left">MKRN Starter</strong>
-        <nav className="main-navigation right">
-          <ul>
-            {this.buildNavigation()}
-          </ul>
+        {isMobile &&
+          <a
+            href="javascript:void(null);"
+            role="button"
+            className="mobile-nav-toggle clearfix right material-icons"
+            onClick={this.toggleMobileNav}
+            aria-label="Toggle navigation"
+          >
+            {mobileNavOpen ? 'close' : 'menu'}
+          </a>
+        }
+        <nav className={`main-navigation right ${isMobile ? `mobile ${mobileNavOpen ? 'is-expanded' : ''}` : ''}`}>
+          {this.buildNavigation()}
         </nav>
       </header>
     );

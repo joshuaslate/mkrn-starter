@@ -4,11 +4,48 @@ header {
   width: 100%;
   padding: 0 10px;
 
+  .mobile-nav-toggle {
+    text-decoration: none;
+    line-height: $header-height;
+    color: #000;
+  }
+
   .logo {
     line-height: $header-height;
   }
 
+  // Navigation
   nav {
+    // Mobile navigation
+    &.mobile {
+      display: none;
+
+      &.is-expanded {
+        display: block;
+
+        ul {
+          position: absolute;
+          width: 100%;
+          right: 0;
+          top: $header-height;
+          padding: 10px;
+          background-color: #efefef;
+
+          li {
+            display: block;
+            padding: 10px 0;
+            line-height: 1rem;
+            border-top: 1px solid #CCC;
+
+            &:first-of-type {
+              border-top: none;
+            }
+          }
+        }
+      }
+    }
+
+    // Non-mobile and shared navigation
     ul {
       margin: 0;
 
