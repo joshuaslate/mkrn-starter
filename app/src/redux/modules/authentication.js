@@ -5,15 +5,14 @@ import { deleteCookie, getCookie, setCookie } from '../../util/cookie-utils';
 import { updateStore, buildGenericInitialState, handleError } from '../../util/store-utils';
 import { getAppUrl } from '../../util/environment-utils';
 
-const typeBase = `${APP_NAMESPACE}/authentication/`;
+const AUTH_ENDPOINT_BASE = 'auth';
+const typeBase = `${APP_NAMESPACE}/${AUTH_ENDPOINT_BASE}/`;
 
 // Constants
 export const CHANGE_AUTH = `${typeBase}CHANGE_AUTH`;
 export const SET_POST_AUTH_PATH = `${typeBase}SET_POST_AUTH_PATH`;
 export const RESET_PASSWORD = `${typeBase}RESET_PASSWORD`;
 export const GET_AUTHENTICATED_USER = `${typeBase}GET_AUTHENTICATED_USER`;
-
-const AUTH_ENDPOINT_BASE = 'auth';
 
 // Actions
 export const changeAuthentication = payload => dispatch =>

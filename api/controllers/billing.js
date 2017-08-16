@@ -81,15 +81,22 @@ exports.stripeWebhook = async (ctx, next) => {
 };
 
 /**
- * createCustomer - If user doesn't have associated Stripe customer, create one
+ * createCustomer - If user doesn't have associated Stripe customer, create one,
+ * else fetch and return the existing customer object
  */
 exports.createCustomer = async (ctx) => {
   try {
-    const customer = await stripe.customers.create({
-      source: ctx.state.token,
-      email: ctx.state.customerEmail,
-    });
-    ctx.state.customerId = customer.id;
+    let customer;
+
+    if (_.get(ctx, 'state.user.billing.customerId')) {
+      customer = await stripe.customers.retrieve(ctx.state.user.billing.customerId);
+    } else {
+      customer = await stripe.customers.create({
+        source: ctx.state.token,
+        email: ctx.state.customerEmail,
+      });
+    }
+    ctx.state.customer = customer;
   } catch (err) {
     ctx.throw(500, err);
   }
@@ -104,16 +111,16 @@ exports.createSubscription = async (ctx, next) => {
   try {
     const user = await User.findById(ctx.state.user.id || null);
 
-    // Create customer with Stripe
-    if (!_.get(user, 'billing.customerId')) {
-      ctx.state.token = stripeToken;
-      ctx.state.customerEmail = user.email;
+    // Create customer or fetch customer with Stripe
+    ctx.state.token = stripeToken;
+    ctx.state.customerEmail = user.email;
 
-      // Move to the createCustomer middleware (in case a customer isn't associated yet)
-      await next();
+    // Move to the createCustomer middleware (in case a customer isn't associated yet)
+    await next();
 
+    if (user && !_.get(user, 'billing.customerId')) {
       // After createCustomer middleware, add the customer id to the user
-      _.set(user, 'billing.customerId', ctx.state.customerId);
+      _.set(user, 'billing.customerId', ctx.state.customer.id);
     }
 
     // Next, create the subscription with a 30-day free trial
@@ -132,7 +139,10 @@ exports.createSubscription = async (ctx, next) => {
     await user.save();
 
     ctx.status = 200;
-    ctx.body = { message: `Your subscription to the ${plan} plan has been started.` };
+    ctx.body = {
+      message: `Your subscription to the ${plan} plan has been started.`,
+      customer: ctx.state.customer,
+    };
   } catch (err) {
     ctx.throw(500, err);
   }

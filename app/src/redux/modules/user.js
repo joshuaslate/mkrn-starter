@@ -4,13 +4,12 @@ import { put, post, get, del } from '../../util/http-utils';
 import { updateStore, buildGenericInitialState, handleError } from '../../util/store-utils';
 import { CHANGE_AUTH, GET_AUTHENTICATED_USER } from './authentication';
 
-const typeBase = `${APP_NAMESPACE}/user/`;
+const USER_ENDPOINT_BASE = 'user';
+const typeBase = `${APP_NAMESPACE}/${USER_ENDPOINT_BASE}/`;
 
 // Constants
 export const GET_USER = `${typeBase}GET_USER`;
 export const GET_USERS = `${typeBase}GET_USERS`;
-
-const USER_ENDPOINT_BASE = 'user';
 
 // Actions
 
@@ -54,7 +53,6 @@ export default (state = INITIAL_STATE, action) => {
       return updateStore(state, action, _.get(action, 'payload.user.id') ? { [action.payload.user.id]: action.payload.user } : {});
     case GET_USER:
     case GET_AUTHENTICATED_USER:
-      console.log(action)
       return updateStore(state, action, _.get(action, 'payload.user.id') ? { [action.payload.user.id]: action.payload.user } : {});
     case GET_USERS:
       return updateStore(state, action, _.get(action, 'payload.users') ? _.mapKeys(action.payload.users, 'id') : {});
