@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "test": "jest"
+    "test": "jest --coverage --watch"
   },
   "repository": "https://github.com/joshuaslate/mkrn-starter.git",
   "author": "Joshua Anderson Slate",
