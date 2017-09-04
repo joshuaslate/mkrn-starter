@@ -17,7 +17,9 @@ ReactDOM.render((
     <BrowserRouter>
       <div className="app-container">
         <Header />
-        <Routes />
+        <main>
+          <Routes />
+        </main>
       </div>
     </BrowserRouter>
   </Provider>

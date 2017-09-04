@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 
 const AuthenticatedRoutes = () => (
   <Switch>
-    <Route exact path="/dashboard" component={() => <div>Hello</div>} />
+    <Route exact path="/dashboard" component={() => <div>Welcome to the dashboard</div>} />
   </Switch>
 );
 

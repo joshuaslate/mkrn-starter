@@ -24,7 +24,6 @@ class Header extends Component {
 
   buildNavigation = () => {
     const { user } = this.props;
-    console.log(user)
     const links = [
       {
         name: 'Dashboard',

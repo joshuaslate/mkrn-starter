@@ -15,5 +15,8 @@
     "no-script-url": "off",
     "react/jsx-filename-extension": "off",
     "react/require-default-props": "off"
+  },
+  "globals": {
+    "Stripe": true
   }
 }

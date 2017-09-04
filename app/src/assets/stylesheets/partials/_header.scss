@@ -2,7 +2,7 @@ header {
   background: #e6e6e6;
   height: $header-height;
   width: 100%;
-  padding: 0 10px;
+  padding: 0 $wrapper-horiz-pad;
 
   .mobile-nav-toggle {
     text-decoration: none;

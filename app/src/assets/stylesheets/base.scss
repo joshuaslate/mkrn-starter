@@ -46,3 +46,11 @@ html, body, #root {
 .inline {
   display: inline-block;
 }
+
+.container {
+  padding: 0 $wrapper-horiz-pad;
+}
+
+main {
+  padding: 10px;
+}
