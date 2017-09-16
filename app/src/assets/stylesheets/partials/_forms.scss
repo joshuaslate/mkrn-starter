@@ -36,7 +36,7 @@
     font-size: 14px;
     line-height: $unit * 2;
     margin-bottom: $unit;
-    text-transform: uppercase;
+    //text-transform: uppercase;
     font-weight: bold;
 
     &.has-error {
@@ -61,7 +61,7 @@
     font-weight: 300;
     height: 40px;
     outline: none;
-    padding: 0 ($unit * 2);
+    padding: 0 ($unit * 0.3);
     width: 100%;
     transition: border-color .3s ease-in-out, background .3s ease-in-out, box-shadow .3s ease-in-out;
 
