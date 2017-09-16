@@ -8,6 +8,7 @@ const GenericForm = ({ formSpec = [], errors = [], message = '', onSubmit, submi
   <form className="form" onSubmit={onSubmit}>
     <Alert errors={errors} icon="error_outline" />
     <Alert message={message} icon="done" />
+    <br/>
     <ul className="form-list">
       {formSpec.map(field => <li key={field.id}><Field {...field} /></li>)}
     </ul>
