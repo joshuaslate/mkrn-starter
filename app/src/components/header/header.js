@@ -38,7 +38,7 @@ class Header extends Component {
         childlinks : [
           {
             name: 'Edit Profile',
-            link: 'editProfile',
+            link: 'editprofile',
             authenticated: true,
           },
           {

@@ -25,6 +25,7 @@ GenericForm.propTypes = {
     name: PropTypes.string,
     label: PropTypes.string,
     component: PropTypes.func,
+    value:PropTypes.string
   })),
   message: PropTypes.string,
   errors: errorPropTypes,
