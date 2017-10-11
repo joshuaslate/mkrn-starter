@@ -1,8 +1,13 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const ROLES = require('../constants').ROLES;
+const bitcoin = require('../utils/bitcoin-utils.js');
+const autoIncrement = require('mongoose-auto-increment');
 
 const Schema = mongoose.Schema;
+
+autoIncrement.initialize(mongoose);
+
 
 //= ===============================
 // User Schema
@@ -14,6 +19,7 @@ const UserSchema = new Schema({
     unique: true,
     required: true,
   },
+  customerId: { type: String, required: true, default: 0 },
   password: { type: String, required: true },
   name: {
     first: { type: String, required: true },
@@ -24,10 +30,10 @@ const UserSchema = new Schema({
     enum: Object.keys(ROLES).map(key => ROLES[key]),
     default: ROLES.USER,
   },
+  bitcoin: { type: String },
   resetPasswordToken: { type: String },
   resetPasswordExpires: { type: Date },
   billing: {
-    customerId: { type: String },
     subscriptionId: { type: String },
     plan: { type: String },
     nextPaymentDue: { type: Date },
@@ -44,6 +50,7 @@ const UserSchema = new Schema({
   },
 });
 
+
 UserSchema.virtual('fullName').get(function virtualFullName() {
   return `${this.name.first} ${this.name.last}`;
 });
@@ -51,13 +58,30 @@ UserSchema.virtual('fullName').get(function virtualFullName() {
 //= ===============================
 // User model hooks
 //= ===============================
+UserSchema.plugin(autoIncrement.plugin, 'customerId');
+
 // Pre-save of user to database, hash password if password is modified or new
 UserSchema.pre('save', async function hashPassword(next) {
   const user = this;
-
   if (user && user.isModified('password')) {
     try {
+      // counter.findByIdAndUpdateAsync({
+      //   email: user.email },
+      // { $inc: { seq: 1 } },
+      // { new: true, upsert: true,
+      // }).then((count) => {
+      //   console.log(`...count: ${JSON.stringify(count)}`);
+      //   user.sort = count.seq;
+      //   next();
+      // })
+      //   .catch((error) => {
+      //     console.error(`counter error-> : ${error}`);
+      //     throw error;
+      //   });
+
       const salt = await bcrypt.genSalt(5);
+      console.log('user: ', user);
+      user.bitcoin = await bitcoin.getDeposit(user._id);
       user.password = await bcrypt.hash(user.password, salt, null);
       return next();
     } catch (err) {

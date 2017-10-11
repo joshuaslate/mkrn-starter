@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Login from '../components/authentication/login';
+// import Billing from '../components/billing/credit-card-fields';
 import Register from '../components/authentication/register';
 import ForgotPassword from '../components/authentication/forgot-password';
 import ResetPassword from '../components/authentication/reset-password';

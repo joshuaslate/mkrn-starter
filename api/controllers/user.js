@@ -46,7 +46,6 @@ exports.editUser = async (ctx, next) => {
     const safeData = ctx.state.user.id === ctx.params.id
       ? ctx.body
       : filterSensitiveData(ctx.body);
-
     await User.findOneAndUpdate({ _id: ctx.params.id }, safeData);
     await next();
   } catch (err) {
