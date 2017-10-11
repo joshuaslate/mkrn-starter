@@ -45,7 +45,8 @@ class Register extends Component {
           formSpec={Register.formSpec}
           submitText="Register"
         />
-        <Link className="inline" to="/login">Have an account?</Link>
+        <br/>
+        <Link className="link inline" to="/login">Have an account?</Link>
       </div>
     );
   }

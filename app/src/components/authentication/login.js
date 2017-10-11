@@ -50,8 +50,14 @@ class Login extends Component {
           formSpec={Login.formSpec}
           submitText="Login"
         />
-        <Link className="inline" to="/forgot-password">Forgot password?</Link> | <Link className="inline" to="/register">Create a new account.</Link>
-      </div>
+        <br/>
+        <div className="row">
+       <div className="col-1">
+         <Link className="link inline col-2" to="/forgot-password">Forgot password?</Link>
+         <Link className="link inline col-2" to="/register">Create a new account.</Link>
+         </div>
+         </div>
+         </div>
     );
   }
 }

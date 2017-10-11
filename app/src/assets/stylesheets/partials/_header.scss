@@ -1,8 +1,10 @@
 header {
-  background: #e6e6e6;
+  background: #446CB3;
   height: $header-height;
   width: 100%;
   padding: 0 $wrapper-horiz-pad;
+  color:#fff;
+  font-size:18px;
 
   .mobile-nav-toggle {
     text-decoration: none;
@@ -28,15 +30,18 @@ header {
           width: 100%;
           right: 0;
           top: $header-height;
-          padding: 10px;
-          background-color: #efefef;
 
           li {
             display: block;
-            padding: 10px 0;
             line-height: 1rem;
-            border-top: 1px solid #CCC;
-
+            background: #446CB3;
+            border-left: #fff;
+            padding: ($unit*1) ($unit*1) ($unit*1) ($unit*1);
+              a {
+                font-size: 14px;
+                color:white;
+                font-weight: bold;
+              }
             &:first-of-type {
               border-top: none;
             }
@@ -48,12 +53,17 @@ header {
     // Non-mobile and shared navigation
     ul {
       margin: 0;
-
       li {
         display: inline-block;
-        padding: 0 10px;
         line-height: $header-height;
-
+        border-left: 1px #fff;
+        padding-left: $unit*2;
+        a {
+          font-size: 16px;
+          color:white;
+          font-weight: bold;
+          text-decoration: none;
+        }
         &:last-of-type {
           padding-right: 0;
         }
@@ -61,3 +71,7 @@ header {
     }
   }
 }
+
+ul li ul li {
+  display: none;
+} 

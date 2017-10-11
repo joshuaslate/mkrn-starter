@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { getAuthenticatedUser } from '../../redux/modules/user';
 import { logoutUser } from '../../redux/modules/authentication';
 import { mobileBreakpoint } from '../../constants/ui-constants';
+import DropDown from '../general/dropdownmenu';
 
 class Header extends Component {
   state = {
@@ -25,21 +26,33 @@ class Header extends Component {
   buildNavigation = () => {
     const { user } = this.props;
     const links = [
-      {
-        name: 'Dashboard',
-        link: 'dashboard',
-        authenticated: true,
-      },
+      // {
+      //   name: 'Dashboard',
+      //   link: 'dashboard',
+      //   authenticated: true,
+      // },
       {
         name: (user && user.firstName) || 'Profile',
-        link: 'profile',
+        //link: 'profile',
         authenticated: true,
+        childlinks : [
+          {
+            name: 'Edit Profile',
+            link: 'editprofile',
+            authenticated: true,
+          },
+          {
+            name: 'Sign out',
+            onClick: this.props.logoutUser,
+            authenticated: true,
+          }
+        ]
       },
-      {
-        name: 'Sign out',
-        onClick: this.props.logoutUser,
-        authenticated: true,
-      },
+      // {
+      //   name: 'Sign out',
+      //   onClick: this.props.logoutUser,
+      //   authenticated: true,
+      // },
       {
         name: 'Sign in',
         link: 'login',
@@ -58,6 +71,11 @@ class Header extends Component {
           <li key={link.name}>
             {link.link && <Link to={link.link}>{link.name}</Link>}
             {link.onClick && <a href="javascript:void(null);" onClick={link.onClick}>{link.name}</a>}
+            {link.childlinks && //<div>{link.name}</div>
+                //<ul>
+               // {link.childlinks.map(childlink => <li key={childlink.name}></li> )}</ul>
+               <DropDown nodeName={link.name} childMenu = {link.childlinks} />
+            }
           </li>
         ))}
       </ul>
