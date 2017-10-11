@@ -38,7 +38,7 @@ exports.stripeWebhook = async (ctx, next) => {
 
         const user = await User.update(
           { 'billing.subscriptionId': subscriptionId },
-          { nextPaymentDue: paymentDueOn },
+          { nextPaymentDue: paymentDueOn }
         );
 
         if (!user) {

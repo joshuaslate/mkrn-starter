@@ -85,7 +85,6 @@ exports.register = async (ctx, next) => {
     const formattedEmail = email.toLowerCase();
     try {
       let user = await User.findOne({ email: formattedEmail });
-
       if (user !== null) {
         ctx.status = 422;
         ctx.body = { errors: [{ error: ERRORS.ALREADY_REGISTERED }] };

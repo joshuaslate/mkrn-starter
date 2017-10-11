@@ -40,8 +40,7 @@ class ForgotPassword extends Component {
           formSpec={ForgotPassword.formSpec}
           submitText="Reset Password"
         />
-        <br/>
-        <Link className="link inline" to="/login">Back to login</Link>
+        <Link className="inline" to="/login">Back to login</Link>
       </div>
     );
   }

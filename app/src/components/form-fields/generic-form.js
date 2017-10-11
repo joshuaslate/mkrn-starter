@@ -8,7 +8,6 @@ const GenericForm = ({ formSpec = [], errors = [], message = '', onSubmit, submi
   <form className="form" onSubmit={onSubmit}>
     <Alert errors={errors} icon="error_outline" />
     <Alert message={message} icon="done" />
-    <br/>
     <ul className="form-list">
       {formSpec.map(field => <li key={field.id}><Field {...field} /></li>)}
     </ul>
@@ -25,7 +24,6 @@ GenericForm.propTypes = {
     name: PropTypes.string,
     label: PropTypes.string,
     component: PropTypes.func,
-    value:PropTypes.string
   })),
   message: PropTypes.string,
   errors: errorPropTypes,
