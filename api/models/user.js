@@ -51,8 +51,7 @@ UserSchema.virtual('fullName').get(function virtualFullName() {
 //= ===============================
 // User model hooks
 //= ===============================
-// Pre-save of user to database, hash password if password is modified or new
-UserSchema.pre('save', async function hashPassword(next) {
+async function hashPassword(next) {
   const user = this;
 
   if (user && user.isModified('password')) {
@@ -66,7 +65,11 @@ UserSchema.pre('save', async function hashPassword(next) {
   } else {
     return next();
   }
-});
+}
+
+// Pre-save of user to database, hash password if password is modified or new
+UserSchema.pre('save', hashPassword);
+UserSchema.pre('update', hashPassword);
 
 //= ===============================
 // User model methods
