@@ -33,11 +33,14 @@ const createTokenCtx = (user) => {
 exports.jwtAuth = (ctx, next) => passport.authenticate('jwt', async (err, payload) => {
   const epochTimestamp = Math.round((new Date()).getTime() / 1000);
 
-  // Check if JWT has expired, return error if so
-  if (payload.exp <= epochTimestamp) {
+  // If there is no payload, inform the user they are not authorized to see the content
+  if (!payload) {
+    ctx.status = 401;
+    ctx.body = { errors: { error: ERRORS.JWT_FAILURE }, jwtExpired: true };
+    // Check if JWT has expired, return error if so
+  } else if (payload.exp <= epochTimestamp) {
     ctx.status = 401;
     ctx.body = { errors: { error: ERRORS.JWT_EXPIRED }, jwtExpired: true };
-    await next();
   } else {
     // Add user to state
     ctx.state.user = payload;

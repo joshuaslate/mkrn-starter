@@ -11,6 +11,7 @@ module.exports = {
     INVALID_NAME: 'You must enter a full name.',
     INVALID_PASSWORD: 'You must enter a password.',
     JWT_EXPIRED: 'For your safety, your session has expired. Please log back in and try your request again.',
+    JWT_FAILURE: 'You are not authorized to access this content. If you feel this is in error, please contact an administrator.',
     NO_PERMISSION: 'You do not have permission to access this content.',
     PASSWORD_CONFIRM_FAIL: 'Your passwords did not match. Please attempt your request again.',
     PASSWORD_MUST_MATCH: 'Your passwords must match.',

@@ -16,8 +16,7 @@ const app = new Koa()
   .use(cors())
   .use(logger())
   .use(bodyParser())
-  .use(routes.routes())
-  .use(routes.allowedMethods());
+  .use(routes);
 
 const server = app.listen(config.server.port);
 

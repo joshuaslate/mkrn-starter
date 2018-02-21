@@ -1,15 +1,14 @@
 const fs = require('fs');
 const path = require('path');
-const router = require('koa-router')();
+const combineRouters = require('koa-combine-routers');
 
 const baseName = path.basename(module.filename);
 
-fs
+const routes = fs
   .readdirSync(path.join(__dirname))
   .filter(file => (file.indexOf('.') !== 0) && (file !== baseName) && (file.slice(-3) === '.js'))
-  .forEach((file) => {
-    const route = require(path.join(__dirname, file));
-    router.use(route.routes(), route.allowedMethods());
-  });
+  .map(file => require(path.join(__dirname, file)));
 
-module.exports = router;
+const rootRouter = combineRouters(routes);
+
+module.exports = rootRouter;
