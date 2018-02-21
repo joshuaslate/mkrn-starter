@@ -44,10 +44,11 @@ exports.editUser = async (ctx, next) => {
     // Allow users to edit all of their own information, but limited information
     // on other users. This could be controlled in other ways as well.
     const safeData = ctx.state.user.id === ctx.params.id
-      ? ctx.body
-      : filterSensitiveData(ctx.body);
+      ? ctx.request.body
+      : filterSensitiveData(ctx.request.body);
 
     await User.findOneAndUpdate({ _id: ctx.params.id }, safeData);
+    ctx.body = { user: safeData };
     await next();
   } catch (err) {
     ctx.throw(500, err);
