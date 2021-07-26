@@ -3,8 +3,8 @@ module.exports = () => {
   const dbConfig = {
     url: 'mongodb://localhost:27017/dev',
     opts: {
-      useMongoClient: true,
-      autoReconnect: true,
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
       keepAlive: 300000,
     },
   };

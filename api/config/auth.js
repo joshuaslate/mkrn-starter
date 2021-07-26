@@ -5,7 +5,7 @@ const User = require('../models/user');
 
 const SECRET = 'TEST_SECRET';
 const localOpts = { usernameField: 'email', session: false };
-const jwtOpts = { jwtFromRequest: JwtStrategy.ExtractJwt.fromAuthHeader(), secretOrKey: SECRET };
+const jwtOpts = { jwtFromRequest: JwtStrategy.ExtractJwt.fromAuthHeaderWithScheme("jwt"), secretOrKey: SECRET };
 
 module.exports = {
   passport: () => {
