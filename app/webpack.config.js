@@ -13,7 +13,7 @@ module.exports = () => ({
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js'
   },
-  devtool: '#eval-source-map',
+  devtool: 'eval-source-map',
   plugins: [
     new HotModuleReplacementPlugin(),
   ],
@@ -29,9 +29,8 @@ module.exports = () => ({
             options: {
               babelrc: false,
               presets: [
-                ['es2015', { modules: false }],
-                'react',
-                'stage-2',
+                ['@babel/preset-env', { modules: false }],
+                '@babel/react',
               ],
               plugins: ['react-hot-loader/babel'],
             },
@@ -40,7 +39,15 @@ module.exports = () => ({
       },
       {
         test: /\.(css|scss)$/,
-        loader: ['style-loader', 'css-loader', 'sass-loader'],
+        loader: 'style-loader',
+      },
+      {
+        test: /\.(css|scss)$/,
+        loader: 'css-loader',
+      },
+      {
+        test: /\.(css|scss)$/,
+        loader: 'sass-loader',
       },
     ],
   },
