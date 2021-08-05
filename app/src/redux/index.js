@@ -9,7 +9,7 @@ const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
 const rootReducer = combineReducers({
   authentication: authenticationReducer,
   user: userReducer,
-  form: formReducer,
+  form: formReducer
 });
 
 const configureStore = initialState => createStoreWithMiddleware(rootReducer, initialState);
