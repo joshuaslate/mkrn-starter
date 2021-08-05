@@ -8,6 +8,10 @@ import GenericForm from '../form-fields/generic-form';
 import { login, CHANGE_AUTH } from '../../redux/modules/authentication';
 import { errorPropTypes } from '../../util/proptype-utils';
 import './authentication.scss';
+import { getComponentTranslator } from '../../util/i18n';
+import { Translate } from 'react-i18nify';
+
+const translate = getComponentTranslator('login');
 
 const form = reduxForm({
   form: 'login',
@@ -24,8 +28,8 @@ class Login extends Component {
   };
 
   static formSpec = [
-    { id: 'email', name: 'email', label: 'Email', type: 'email', placeholder: 'you@yourdomain.com', component: TextInput },
-    { id: 'password', name: 'password', label: 'Password', type: 'password', placeholder: '********', component: TextInput },
+    { id: 'email', name: 'email', label: translate('email'), type: 'email', placeholder: 'you@yourdomain.com', component: TextInput },
+    { id: 'password', name: 'password', label: translate('password'), type: 'password', placeholder: '********', component: TextInput },
   ];
 
   handleFormSubmit = (formProps) => {
@@ -42,15 +46,18 @@ class Login extends Component {
 
     return (
       <div className={`auth-box ${loading ? 'is-loading' : ''}`}>
-        <h1>Login</h1>
+        <h1><Translate value="login.title"/></h1>
         <GenericForm
           onSubmit={handleSubmit(this.handleFormSubmit)}
           errors={errors}
           message={message}
           formSpec={Login.formSpec}
-          submitText="Login"
+          submitText={translate('submit')}
         />
-        <Link className="inline" to="/forgot-password">Forgot password?</Link> | <Link className="inline" to="/register">Create a new account.</Link>
+        <Link className="inline" to="/forgot-password">
+          <Translate value="login.forgotPassword" /></Link> | <Link className="inline" to="/register">
+          <Translate value="login.createNewAccount" />
+        </Link>
       </div>
     );
   }

@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom';
 import { getAuthenticatedUser } from '../../redux/modules/user';
 import { logoutUser } from '../../redux/modules/authentication';
 import { mobileBreakpoint } from '../../constants/ui-constants';
+import { getComponentTranslator } from '../../util/i18n';
+
+const translate = getComponentTranslator('header');
 
 class Header extends Component {
   state = {
@@ -26,27 +29,27 @@ class Header extends Component {
     const { user } = this.props;
     const links = [
       {
-        name: 'Dashboard',
+        name: translate('dashboard'),
         link: 'dashboard',
         authenticated: true,
       },
       {
-        name: (user && user.firstName) || 'Profile',
+        name: (user && user.firstName) || translate('profile'),
         link: 'profile',
         authenticated: true,
       },
       {
-        name: 'Sign out',
+        name: translate('logout'),
         onClick: this.props.logoutUser,
         authenticated: true,
       },
       {
-        name: 'Sign in',
+        name: translate('login'),
         link: 'login',
         authenticated: false,
       },
       {
-        name: 'Register',
+        name: translate('register'),
         link: 'register',
         authenticated: false,
       },
