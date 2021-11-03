@@ -28,7 +28,7 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "stripe": "^8.165.0",
-    "validator": "^13.6.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.14.7",
