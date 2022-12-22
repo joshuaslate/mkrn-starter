@@ -13,7 +13,7 @@
   "dependencies": {
     "bcrypt": "^5.0.1",
     "crypto-promise": "^2.1.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "kcors": "^2.2.2",
     "koa": "^2.13.1",
     "koa-bodyparser": "^4.3.0",
